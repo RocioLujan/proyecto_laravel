@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>Crear Alumno</h1>
-    <form action="{{ route('alumnos.store') }}" method="POST">
-        @csrf
-        <div class="form-group">
-            <label for="nombre">Nombre</label>
-            <input type="text" name="nombre" id="nombre" class="form-control" value="{{ old('nombre') }}">
+<h1>Crear Alumno</h1>
+<form action="{{ route('alumnos.store') }}" method="POST">
+    @csrf
+    <div class="form-group">
+        <label for="nombre">Nombre</label>
+        <input type="text" name="nombre" id="nombre" class="form-control" value="{{ old('nombre') }}">
     </div>
     <div class="form-group">
         <label for="apellido">Apellido</label>
@@ -14,16 +14,18 @@
     </div>
     <div class="form-group">
         <label for="fecha_nacimiento">Fecha de Nacimiento</label>
-        <input type="date" name="fecha_nacimiento" id="fecha_nacimiento" class="form-control @error('fecha_nacimiento') is-invalid @enderror" value="{{ old('fecha_nacimiento') }}">
+        <input type="date" name="fecha_nacimiento" id="fecha_nacimiento"
+            class="form-control @error('fecha_nacimiento') is-invalid @enderror" value="{{ old('fecha_nacimiento') }}">
         @error('fecha_nacimiento')
-            <small class="text-danger">{{ $message }}</small>
+        <small class="text-danger">{{ $message }}</small>
         @enderror
     </div>
     <div class="form-group">
         <label for="dni">DNI</label>
-        <input type="number" name="dni" id="dni" class="form-control @error('dni') is-invalid @enderror" value="{{ old('dni', $alumno->dni ?? '') }}">
+        <input type="number" name="dni" id="dni" class="form-control @error('dni') is-invalid @enderror"
+            value="{{ old('dni', $alumno->dni ?? '') }}">
         @error('dni')
-            <small class="text-danger">{{ $message }}</small>
+        <small class="text-danger">{{ $message }}</small>
         @enderror
     </div>
     <div class="form-group">
@@ -52,13 +54,13 @@
 
 @section('scripts')
 <script>
-    document.getElementById('fecha_nacimiento').addEventListener('change', function() {
-        let date = new Date(this.value);
-        let day = String(date.getDate()).padStart(2, '0');
-        let month = String(date.getMonth() + 1).padStart(2, '0');
-        let year = date.getFullYear();
-        this.value = `${month}-${day}-${year}`; // Formato mes-día-año para ser procesado
-    });
+document.getElementById('fecha_nacimiento').addEventListener('change', function() {
+    let date = new Date(this.value);
+    let day = String(date.getDate()).padStart(2, '0');
+    let month = String(date.getMonth() + 1).padStart(2, '0');
+    let year = date.getFullYear();
+    this.value = `${month}/${day}/${year}`; // Formato mes/día/año para ser procesado
+});
 </script>
-    
+
 @endsection
